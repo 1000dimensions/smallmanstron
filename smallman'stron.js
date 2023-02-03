@@ -57,9 +57,11 @@ function handleKeyPress(event) {
 	setKey(key, p1, 38, 39, 40, 37); // arrow keys
 	setKey(key, p2, 87, 68, 83, 65); // WASD
 }
+let noCells = new Set();
 document.addEventListener('keydown', handleKeyPress);
 function WlayableCells(canvas, unit){
 	let playableCells = new Set();
+    
 	for(var i = 0; i < tron.width / grid; i++) {
 		for(var j = 0; j < tron.height / grid; j++){
 			playableCells.add(i * grid + 'x' + j * grid + 'y');	
@@ -93,28 +95,19 @@ function drawSP(players) {
 		context.fillRect(p.x, p.y, grid, grid);
 		context.strokeStyle = 'black';
 		context.strokeRect(p.x, p.y, grid, grid);
+        noCells.add(p.x + p.y)
+        
 	}); 
 }
 drawSP(Player.Programs);
-
-let outcome, winnerColor, playerCount = Player.Programs.length;
+const REtext = document.createElement('h1');
+var winnerColor = '';
+let outcome, playerCount = Player.Programs.length;
 console.log(playerCount);
 console.log(winnerColor);
 function draw() {
 	if(Player.Programs.filter(p => !p.key).length === 0) {
 		console.log(Player.Programs)
-		if(playerCount === 1) {
-			const alivePlayers = Players.Programs.filter(p => p.dead === false);
-			outcome = 'Player ${alivePlayers[0]._id} wins!';
-			winnerColor = alivePlayers[0].color;
-
-		} else if (playerCount === 0) {
-			outcome = 'Draw!';
-		}
-		if (outcome) {
-			showResults(winnerColor);
-			clearInterval(game);
-			console.log(outcome);
 		}
 		Player.Programs.forEach(p => {
 			if (p.key) {
@@ -123,11 +116,19 @@ function draw() {
 				context.fillRect(p.x, p.y, grid, grid);
 				context.strokeStyle = 'black';
 				context.strokeRect(p.x, p.y, grid, grid);
-				if (!playableCells.has(p.x + "x" + p.y + "y") && p.dead === false) {
+				if (noCells.has(p.x + "x" + p.y + "y") && p.dead === false) {
 					p.dead = true; 
 					p.direction = '';
-					playerCount -= 1; 
+					playerCount = 1; 
+                       if(p.dead == true){
+                           loserColor = p.dead;
+                           outcome = (loserColor + "loses");
+                           showResults(loserColor);
+                       }
 				}
+                playableCells.delete(`${p.x}x${p.y}y`);
+                noCells.add(`${p.x}x${p.y}y`);
+                console.log(noCells);
 				if(!p.dead) {
 					if(p.direction == "LEFT") p.x -= grid;
 					if(p.direction == "UP") p.y -= grid;
@@ -136,7 +137,6 @@ function draw() {
 				}
 			}
 		});
-	}
 }
 var game = setInterval(draw, 100);
 
@@ -156,6 +156,7 @@ function showResults(color) {
 	resultnode.style.background = '#000088';
 	const resultText = document.createElement('h1');
 	resultText.innerText = outcome;
+    resultText.id = 'rText';
 	resultText.style.fontFamily = 'Ubuntu';
 	resultText.style.textTransform = 'uppercase';
 	const replayB = document.createElement('button');
@@ -168,9 +169,9 @@ function showResults(color) {
 	replayB.style.cursor = 'pointer';
 	replayB.onclick = resetGame();
 	
-	resultnode.appendChild(resultText);
-	resultnode.appendChild(replayB);
-	document.querySelector('body').appendChild(resultnode);
+	resultnode.appendChild('rText');
+	resultnode.appendChild('Replay');
+	document.querySelector('body').appendChild('result');
 }
 
 function resetGame() {
@@ -193,7 +194,7 @@ function resetGame() {
 	drawSP(Player.Programs);
 	
 	outcome = '';
-	winnerColor = '';
+	loserColor = '';
 
 	clearInterval(game);
 	game = setInterval(draw, 100);
