@@ -185,6 +185,8 @@ function resetGame() {
 	
 	outcome = '';
 	loserColor = '';
+    document.addEventListener('keydown', handleKeyPress);
 
 	var game = setInterval(draw, 100);
+    
 }
