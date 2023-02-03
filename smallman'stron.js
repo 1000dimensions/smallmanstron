@@ -62,7 +62,8 @@ function WlayableCells(canvas, unit){
 	let playableCells = new Set();
 	for(var i = 0; i < tron.width / grid; i++) {
 		for(var j = 0; j < tron.height / grid; j++){
-			playableCells.add('${i * grid}x${j * grid}y');
+			playableCells.add('${i * grid}x${j * grid}y');	
+			console.log(playableCells)
 		}
 	}
 	return playableCells;
@@ -97,19 +98,22 @@ function drawSP(players) {
 drawSP(Player.Programs);
 
 let outcome, winnerColor, playerCount = Player.Programs.length;
-
+console.log(playerCount);
+console.log(winnerColor);
 function draw() {
 	if(Player.Programs.filter(p => !p.key).length === 0) {
 		if(playerCount === 1) {
 			const alivePlayers = Players.Programs.filter(p => p.dead === false);
 			outcome = 'Player ${alivePlayers[0]._id} wins!';
 			winnerColor = alivePlayers[0].color;
+			
 		} else if (playerCount === 0) {
 			outcome = 'Draw!';
 		}
 		if (outcome) {
 			showResults(winnerColor);
 			clearInterval(game);
+			console.log(outcome);
 		}
 		Player.Programs.forEach(p => {
 			if (p.key) {
