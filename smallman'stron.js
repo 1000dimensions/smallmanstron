@@ -62,7 +62,7 @@ function WlayableCells(canvas, unit){
 	let playableCells = new Set();
 	for(var i = 0; i < tron.width / grid; i++) {
 		for(var j = 0; j < tron.height / grid; j++){
-			playableCells.add('${i * grid}x${j * grid}y');	
+			playableCells.add(i * grid + 'x' + j * grid + 'y');	
 			console.log(playableCells)
 		}
 	}
@@ -123,7 +123,7 @@ function draw() {
 				context.fillRect(p.x, p.y, grid, grid);
 				context.strokeStyle = 'black';
 				context.strokeRect(p.x, p.y, grid, grid);
-				if(!playableCells.has('${p.x}x${p.y}y') && p.dead === false) {
+				if (!playableCells.has(p.x + "x" + p.y + "y") && p.dead === false) {
 					p.dead = true; 
 					p.direction = '';
 					playerCount -= 1; 
