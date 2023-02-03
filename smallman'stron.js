@@ -18,8 +18,8 @@ class Player{
 	}
 }
 Player.Programs = [];
-let p1 = new Player(grid * 6, grid* 6, '#75A4FF');
-let p2 = new Player(grid* 43, grid* 43, '#FF5050');
+let p1 = new Player(grid * 6, grid* 10, '#75A4FF');
+let p2 = new Player(grid* 10, grid* 10, '#FF5050');
 function setKey(key, player, up, right, down, left) {
  	switch (key) {
 		case up:
@@ -102,11 +102,12 @@ console.log(playerCount);
 console.log(winnerColor);
 function draw() {
 	if(Player.Programs.filter(p => !p.key).length === 0) {
+		console.log(Player.Programs)
 		if(playerCount === 1) {
 			const alivePlayers = Players.Programs.filter(p => p.dead === false);
 			outcome = 'Player ${alivePlayers[0]._id} wins!';
 			winnerColor = alivePlayers[0].color;
-			
+
 		} else if (playerCount === 0) {
 			outcome = 'Draw!';
 		}
