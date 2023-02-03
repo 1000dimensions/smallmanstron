@@ -26,22 +26,26 @@ function setKey(key, player, up, right, down, left) {
 			if (player.direction !== 'DOWN') {
 				player.key = 'UP';
 			}
+            console.log("U")
 			break;
 		case right:
 			if (player.direction !== 'LEFT') {
 				player.key = 'RIGHT';
 			}
+            console.log("R")
 			break;
 		case down:
 			if (player.direction !== 'UP') {
 				player.key = 'DOWN';
 			}
+            console.log("D")
 			break;
 		case left:
 			if (player.direction !== 'RIGHT') {
 				player.key = 'LEFT';
 			}
-      			break;
+            console.log("L");
+      		break;
 		default:
 		break;
 	}
@@ -57,6 +61,7 @@ function handleKeyPress(event) {
 	setKey(key, p1, 38, 39, 40, 37); // arrow keys
 	setKey(key, p2, 87, 68, 83, 65); // WASD
 }
+
 var noCells = [];
 document.addEventListener('keydown', handleKeyPress);
 
@@ -88,20 +93,22 @@ function drawSP(players) {
 	}); 
 }
 drawSP(Player.Programs);
-var winnerColor = '';
+var someoneWin = false;
+var loserColor = '';
 let outcome, playerCount = Player.Programs.length;
 console.log(playerCount);
-console.log(winnerColor);
+console.log(loserColor);
 function draw() {
-	if(Player.Programs.filter(p => !p.key).length === 0) {
-		console.log(Player.Programs)
-		}
+	if(someoneWin == false){
+        if(Player.Programs.filter(p => !p.key).length === 0) {
+		  console.log(Player.Programs)
+		  }
 		Player.Programs.forEach(p => {
-			if (p.key) {
-				p.direction = p.key;
-				context.fillStyle = p.color;
-				context.fillRect(p.x, p.y, grid, grid);
-				context.strokeStyle = 'black';
+		  	if (p.key) {
+		  		p.direction = p.key;
+		  		context.fillStyle = p.color;
+		  		context.fillRect(p.x, p.y, grid, grid);
+		      	context.strokeStyle = 'black';
 				context.strokeRect(p.x, p.y, grid, grid);
                 console.log(p.key);
 				if (noCells.indexOf(p.x + "x" + p.y + "y") != -1 && p.dead === false) {
@@ -124,6 +131,8 @@ function draw() {
 				}
 			}
 		});
+        console.log(someoneWin);
+    }
 }
 var game = setInterval(draw, 100);
 
@@ -160,7 +169,8 @@ function showResults(color) {
     resultnode.appendChild(resultText);
     resultnode.appendChild(replayB);
 	document.querySelector('body').appendChild(resultnode);
-    clearInterval(game);
+    someoneWin = true;
+    console.log(someoneWin);
 }
 
 function resetGame() {
@@ -177,16 +187,18 @@ function resetGame() {
     
     Player.Programs = [];
     
+    console.log(Player.Programs);
     let p1 = new Player(grid * 6, grid* 10, '#75A4FF');
     let p2 = new Player(grid* 10, grid* 10, '#FF5050');
-	
+
+    console.log(Player.Programs);
     playerCount = Player.Programs.length;
 	drawSP(Player.Programs);
-	
+	console.log(playerCount);
+    
 	outcome = '';
 	loserColor = '';
-    document.addEventListener('keydown', handleKeyPress);
-
-	var game = setInterval(draw, 100);
+    someoneWin = false;
+    console.log(someoneWin);
     
 }
