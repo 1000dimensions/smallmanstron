@@ -161,6 +161,7 @@ function showResults(color) {
 	resultText.style.textTransform = 'uppercase';
 	const replayB = document.createElement('button');
 	replayB.innerText = 'Replay';
+    replayB.id = "ReplayB";
 	replayB.fontFamily = 'Ubuntu';
 	replayB.style.textTransform = 'uppercase';
 	replayB.style.padding = '10px 30px';
@@ -168,15 +169,16 @@ function showResults(color) {
 	replayB.style.margin = '0 auto';
 	replayB.style.cursor = 'pointer';
 	replayB.onclick = resetGame();
-	
-	resultnode.appendChild('rText');
-	resultnode.appendChild('Replay');
+
+	resultnode.appendChild('ReplayB');
 	document.querySelector('body').appendChild('result');
 }
 
 function resetGame() {
 	const result = document.getElementById('resultnode');
+    const resulT = document.getElementById('rText');
 	if(result) result.remove();
+    if(resulT) resulT.remove();
 
 	context.clearRect(0, 0, tron.width, tron.height);
 	drawGrid();
