@@ -2,7 +2,7 @@
 const tron = document.querySelector('#tron');
 const context = tron.getContext('2d');
 const grid = 15;
-//5
+
 class Player{
 	constructor(x, y, team){
 		this.color = team || '#fff';
@@ -121,8 +121,8 @@ function draw() {
 					p.direction = '';
 					playerCount = 1; 
                        if(p.dead == true){
-                           loserColor = p.dead;
-                           outcome = (loserColor + "loses");
+                           loserColor = p.color;
+                           outcome = (loserColor + " loses");
                            showResults(loserColor);
                        }
 				}
@@ -169,16 +169,20 @@ function showResults(color) {
 	replayB.style.margin = '0 auto';
 	replayB.style.cursor = 'pointer';
 	replayB.onclick = resetGame();
-
-	resultnode.appendChild('ReplayB');
-	document.querySelector('body').appendChild('result');
+    
+    resultnode.appendChild(resultText);
+    resultnode.appendChild(replayB);
+	document.querySelector('body').appendChild(resultnode);
+    
 }
 
 function resetGame() {
 	const result = document.getElementById('resultnode');
     const resulT = document.getElementById('rText');
+    const resulB = document.getElementById('ReplayB');
 	if(result) result.remove();
     if(resulT) resulT.remove();
+    if(resulB) resulB.remove();
 
 	context.clearRect(0, 0, tron.width, tron.height);
 	drawGrid();
@@ -200,4 +204,4 @@ function resetGame() {
 
 	clearInterval(game);
 	game = setInterval(draw, 100);
-};
+}
