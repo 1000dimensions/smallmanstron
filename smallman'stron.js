@@ -95,12 +95,11 @@ function drawSP(players) {
 		context.fillRect(p.x, p.y, grid, grid);
 		context.strokeStyle = 'black';
 		context.strokeRect(p.x, p.y, grid, grid);
-        noCells.add(p.x + p.y)
+        noCells.add(p.x + p.y);
         
 	}); 
 }
 drawSP(Player.Programs);
-const REtext = document.createElement('h1');
 var winnerColor = '';
 let outcome, playerCount = Player.Programs.length;
 console.log(playerCount);
@@ -168,7 +167,7 @@ function showResults(color) {
 	replayB.style.fontSize = '1.2rem';
 	replayB.style.margin = '0 auto';
 	replayB.style.cursor = 'pointer';
-	replayB.onclick = resetGame();
+	replayB.onclick = resetGame;
     
     resultnode.appendChild(resultText);
     resultnode.appendChild(replayB);
@@ -177,26 +176,24 @@ function showResults(color) {
 }
 
 function resetGame() {
-	const result = document.getElementById('resultnode');
-    const resulT = document.getElementById('rText');
-    const resulB = document.getElementById('ReplayB');
-	if(result) result.remove();
-    if(resulT) resulT.remove();
-    if(resulB) resulB.remove();
+	const result = document.getElementById('result');
+	if(result) {
+        result.remove();
+    }
+
 
 	context.clearRect(0, 0, tron.width, tron.height);
 	drawGrid();
 
 	playableCells = WlayableCells(tron, grid);
+	noCells = new Set();
+    
+    Player.Programs = [];
+    
+    let p1 = new Player(grid * 6, grid* 10, '#75A4FF');
+    let p2 = new Player(grid* 10, grid* 10, '#FF5050');
 	
-	Player.Programs.forEach(p => {
-		p.x = p.sX;
-		p.y = p.sy;
-		p.dead = false;
-		p.direction = '';
-		p.key = '';
-	});
-	playerCount = Player.Programs.length;
+    playerCount = Player.Programs.length;
 	drawSP(Player.Programs);
 	
 	outcome = '';
