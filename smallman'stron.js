@@ -5,7 +5,7 @@ const grid = 15;
 //5
 class Player{
 	constructor(x, y, team){
-		this.color = team|| '#fff';
+		this.color = team || '#fff';
 		this.x = x;
 		this.sX = x;
 		this.y = y;
@@ -62,12 +62,13 @@ function WlayableCells(canvas, unit){
 	let playableCells = new Set();
 	for(var i = 0; i < tron.width / grid; i++) {
 		for(var j = 0; j < tron.height / grid; j++){
-			playableCells.add('${i*grid}x${j*grid}y');
+			playableCells.add('${i * grid}x${j * grid}y');
 		}
 	}
 	return playableCells;
 }
 let playableCells = WlayableCells(tron, grid);
+
 function drawGrid() {
 	context.strokeStyle = '#001900';
 	for(var i = 0; i <= tron.width / grid + 2; i +=2){
@@ -94,8 +95,9 @@ function drawSP(players) {
 	}); 
 }
 drawSP(Player.Programs);
-let outcome, winnerColor = Player.Programs.length;
-var playerCount = 2;
+
+let outcome, winnerColor, playerCount = Player.Programs.length;
+
 function draw() {
 	if(Player.Programs.filter(p => !p.key).length === 0) {
 		if(playerCount === 1) {
@@ -182,7 +184,7 @@ function resetGame() {
 		p.direction = '';
 		p.key = '';
 	});
-	playerCount = 2;
+	playerCount = Player.Programs.length;
 	drawSP(Player.Programs);
 	
 	outcome = '';
