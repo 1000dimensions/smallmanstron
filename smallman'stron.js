@@ -57,20 +57,8 @@ function handleKeyPress(event) {
 	setKey(key, p1, 38, 39, 40, 37); // arrow keys
 	setKey(key, p2, 87, 68, 83, 65); // WASD
 }
-let noCells = new Set();
+var noCells = [];
 document.addEventListener('keydown', handleKeyPress);
-function WlayableCells(canvas, unit){
-	let playableCells = new Set();
-    
-	for(var i = 0; i < tron.width / grid; i++) {
-		for(var j = 0; j < tron.height / grid; j++){
-			playableCells.add(i * grid + 'x' + j * grid + 'y');	
-			console.log(playableCells)
-		}
-	}
-	return playableCells;
-}
-let playableCells = WlayableCells(tron, grid);
 
 function drawGrid() {
 	context.strokeStyle = '#001900';
@@ -95,7 +83,7 @@ function drawSP(players) {
 		context.fillRect(p.x, p.y, grid, grid);
 		context.strokeStyle = 'black';
 		context.strokeRect(p.x, p.y, grid, grid);
-        noCells.add(p.x + p.y);
+        noCells.push(p.x + p.y);
         
 	}); 
 }
@@ -115,7 +103,8 @@ function draw() {
 				context.fillRect(p.x, p.y, grid, grid);
 				context.strokeStyle = 'black';
 				context.strokeRect(p.x, p.y, grid, grid);
-				if (noCells.has(p.x + "x" + p.y + "y") && p.dead === false) {
+                console.log(p.key);
+				if (noCells.indexOf(p.x + "x" + p.y + "y") != -1 && p.dead === false) {
 					p.dead = true; 
 					p.direction = '';
 					playerCount = 1; 
@@ -125,8 +114,7 @@ function draw() {
                            showResults(loserColor);
                        }
 				}
-                playableCells.delete(`${p.x}x${p.y}y`);
-                noCells.add(`${p.x}x${p.y}y`);
+                noCells.push(p.x + 'x' + p.y + 'y');
                 console.log(noCells);
 				if(!p.dead) {
 					if(p.direction == "LEFT") p.x -= grid;
@@ -172,7 +160,7 @@ function showResults(color) {
     resultnode.appendChild(resultText);
     resultnode.appendChild(replayB);
 	document.querySelector('body').appendChild(resultnode);
-    
+    clearInterval(game);
 }
 
 function resetGame() {
@@ -185,8 +173,7 @@ function resetGame() {
 	context.clearRect(0, 0, tron.width, tron.height);
 	drawGrid();
 
-	playableCells = WlayableCells(tron, grid);
-	noCells = new Set();
+	noCells = [];
     
     Player.Programs = [];
     
@@ -199,6 +186,5 @@ function resetGame() {
 	outcome = '';
 	loserColor = '';
 
-	clearInterval(game);
-	game = setInterval(draw, 100);
+	var game = setInterval(draw, 100);
 }
