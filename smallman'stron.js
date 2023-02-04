@@ -111,15 +111,35 @@ function draw() {
 		      	context.strokeStyle = 'black';
 				context.strokeRect(p.x, p.y, grid, grid);
                 console.log(p.key);
-				if (noCells.indexOf(p.x + "x" + p.y + "y") != -1 && p.dead === false) {
+                if (p.x >= tron.width || p.x <= 0) {
+                   p.dead = true; 
+					p.direction = '';
+					playerCount = 1; 
+                    if(p.dead == true){
+                       loserColor = p.color;
+                       outcome = (loserColor + " loses");
+                       showResults(loserColor);
+                    }
+                }
+                else if (p.y >= tron.height || p.y <= 0) {
+                    p.dead = true; 
+					p.direction = '';
+					playerCount = 1; 
+                    if(p.dead == true){
+                       loserColor = p.color;
+                       outcome = (loserColor + " loses");
+                       showResults(loserColor);
+                    }
+                }
+				else if (noCells.indexOf(p.x + "x" + p.y + "y") != -1 && p.dead === false) {
 					p.dead = true; 
 					p.direction = '';
 					playerCount = 1; 
-                       if(p.dead == true){
-                           loserColor = p.color;
-                           outcome = (loserColor + " loses");
-                           showResults(loserColor);
-                       }
+                    if(p.dead == true){
+                       loserColor = p.color;
+                       outcome = (loserColor + " loses");
+                       showResults(loserColor);
+                    }
 				}
                 noCells.push(p.x + 'x' + p.y + 'y');
                 console.log(noCells);
@@ -188,8 +208,8 @@ function resetGame() {
     Player.Programs = [];
     
     console.log(Player.Programs);
-    let p1 = new Player(grid * 6, grid* 10, '#75A4FF');
-    let p2 = new Player(grid* 10, grid* 10, '#FF5050');
+    p1 = new Player(grid * 6, grid* 10, '#75A4FF');
+    p2 = new Player(grid* 10, grid* 10, '#FF5050');
 
     console.log(Player.Programs);
     playerCount = Player.Programs.length;
