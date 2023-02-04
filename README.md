@@ -1,5 +1,5 @@
 # smallmanstron
-A small tron .
+A small tron game.
 
 
 ## Nothing more
