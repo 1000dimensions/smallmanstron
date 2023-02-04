@@ -18,8 +18,8 @@ class Player{
 	}
 }
 Player.Programs = [];
-let p1 = new Player(grid * 6, grid* 10, '#75A4FF');
-let p2 = new Player(grid* 10, grid* 10, '#FF5050');
+let p1 = new Player(grid * 45, grid* 15, '#75A4FF');
+let p2 = new Player(grid* 15, grid* 15, '#FF5050');
 function setKey(key, player, up, right, down, left) {
  	switch (key) {
 		case up:
