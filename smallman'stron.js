@@ -111,7 +111,7 @@ function draw() {
 		      	context.strokeStyle = 'black';
 				context.strokeRect(p.x, p.y, grid, grid);
                 console.log(p.key);
-                if (p.x >= tron.width || p.x <= 0) {
+                if (p.x >= tron.width || p.x < 0) {
                    p.dead = true; 
 					p.direction = '';
 					playerCount = 1; 
@@ -121,7 +121,7 @@ function draw() {
                        showResults(loserColor);
                     }
                 }
-                else if (p.y >= tron.height || p.y <= 0) {
+                else if (p.y >= tron.height || p.y < 0) {
                     p.dead = true; 
 					p.direction = '';
 					playerCount = 1; 
