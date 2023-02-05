@@ -208,8 +208,8 @@ function resetGame() {
     Player.Programs = [];
     
     console.log(Player.Programs);
-    p1 = new Player(grid * 6, grid* 10, '#75A4FF');
-    p2 = new Player(grid* 10, grid* 10, '#FF5050');
+    p1 = new Player(grid * 45, grid* 15, '#75A4FF');
+    p2 = new Player(grid* 15, grid* 15, '#FF5050');
 
     console.log(Player.Programs);
     playerCount = Player.Programs.length;
