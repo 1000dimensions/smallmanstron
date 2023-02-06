@@ -88,6 +88,7 @@ function drawSP(players) {
 		context.fillRect(p.x, p.y, grid, grid);
 		context.strokeStyle = 'black';
 		context.strokeRect(p.x, p.y, grid, grid);
+		noCells.push(p.x + 'x' + p.y + 'y');
         noCells.push(p.x + p.y);
         
 	}); 
