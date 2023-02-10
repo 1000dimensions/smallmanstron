@@ -58,7 +58,7 @@ function handleKeyPress(event) {
 		event.preventDefault();
 	}
 
-	setKey(key, p1, 73, 74, 75, 76); // IJKL
+	setKey(key, p1, 73, 76, 75, 74); // IJKL
 	setKey(key, p2, 87, 68, 83, 65); // WASD
 }
 
