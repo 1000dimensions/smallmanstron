@@ -54,7 +54,7 @@ function setKey(key, player, up, right, down, left) {
 function handleKeyPress(event) {
 	var key = event.keyCode;
 
-	if (key === 37 || key === 38 || key === 39 || key === 40) {
+	if (key === 73 || key === 74 || key === 75 || key === 76) {
 		event.preventDefault();
 	}
 
