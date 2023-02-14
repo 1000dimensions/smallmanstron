@@ -184,9 +184,6 @@ function showResults(color) {
 	replayB.style.margin = '0 auto';
 	replayB.style.cursor = 'pointer';
 	replayB.onclick = resetGame;
-	if (key == 13) {
-		resetGame();
-	}
     
     resultnode.appendChild(resultText);
     resultnode.appendChild(replayB);
