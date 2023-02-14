@@ -184,7 +184,7 @@ function showResults(color) {
 	replayB.style.margin = '0 auto';
 	replayB.style.cursor = 'pointer';
 	replayB.onclick = resetGame;
-	if (key = 13) {
+	if (key == 13) {
 		resetGame();
 	}
     
