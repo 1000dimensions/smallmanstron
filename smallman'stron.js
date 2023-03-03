@@ -14,7 +14,7 @@ class Player{
 		this.direction = '';
 		this.constructor.counter = (this.constructor.counter || 0) + 1;
 		this._id = this.constructor.counter;
-		Player.Programs.push(this)
+		Player.Programs.push(this);
 	}
 }
 Player.Programs = [];
@@ -26,19 +26,19 @@ function setKey(key, player, up, right, down, left) {
 			if (player.direction !== 'DOWN') {
 				player.key = 'UP';
 			}
-            console.log("U")
+            console.log("U");
 			break;
 		case right:
 			if (player.direction !== 'LEFT') {
 				player.key = 'RIGHT';
 			}
-            console.log("R")
+            console.log("R");
 			break;
 		case down:
 			if (player.direction !== 'UP') {
 				player.key = 'DOWN';
 			}
-            console.log("D")
+            console.log("D");
 			break;
 		case left:
 			if (player.direction !== 'RIGHT') {
@@ -100,20 +100,20 @@ console.log(loserColor);
 function draw() {
 	if(someoneWin == false){
         if(Player.Programs.filter(p => !p.key).length === 0) {
-		  console.log(Player.Programs)
+		  console.log(Player.Programs);
 		  }
 		Player.Programs.forEach(p => {
 		  	if (p.key) {
 		  		p.direction = p.key;
 		  		context.fillStyle = p.color;
 		  		context.fillRect(p.x, p.y, grid, grid);
-		      	context.strokeStyle = 'black';
+		      		context.strokeStyle = 'black';
 				context.strokeRect(p.x, p.y, grid, grid);
                 console.log(p.key);
                 if (p.x >= tron.width || p.x < 0) {
                    p.dead = true; 
-					p.direction = '';
-					playerCount = 1; 
+		   p.direction = '';
+		   playerCount = 1; 
                     if(p.dead == true){
                        loserColor = p.color;
                        outcome = (loserColor + " loses");
