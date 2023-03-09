@@ -190,6 +190,11 @@ function showResults(color) {
 	document.querySelector('body').appendChild(resultnode);
     someoneWin = true;
     console.log(someoneWin);
+	while(someoneWin == true){
+		if(key === 13){
+			resetGame();
+		}
+	}
 }
 
 function resetGame() {
