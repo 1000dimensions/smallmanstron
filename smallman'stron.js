@@ -191,7 +191,7 @@ function showResults(color) {
     someoneWin = true;
     console.log(someoneWin);
 	while(someoneWin == true){
-		if(key === 13){
+		if(event.keyCode === 13){
 			resetGame();
 		}
 	}
